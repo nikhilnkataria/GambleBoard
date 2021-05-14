@@ -1,0 +1,17 @@
+Graph node start: cargo run -p graph-node --release -- --postgres-url postgresql://postgres:postgres@localhost:5432/graph-node --ethereum-rpc ganache-cli:http://127.0.0.1:8545 --ipfs 127.0.0.1:5001 --debug
+
+
+Memonic for Ganache and Metamask: 
+
+census armed fade noise staff random jump network puppy output exclude effort
+
+
+CreateBet:
+"Zurich vs Basel","Zurich wins","Swiss Super League","1","1","1629962138","90000","2000000", "urlTOMetaEvidence"
+"Zurich vs Basel","Basel wins","Swiss Super League","1","1","1629962138","90000","1900000", "urlTOMetaEvidence"
+
+"United States Presidential Election","Donald Trump wins","","3","2","1629962138","90000","2600000", "urlTOMetaEvidence"
+
+"Pittsburgh Penguins vs Washington Capitals","Pittsburgh wins","NHL","186","12","1629962138","90000","3000000", "urlTOMetaEvidence"
+
+"Utica Comets vs Hershey Bears","Utica wins","AHL","186","12","1629962138","90000","3500000", "urlTOMetaEvidence"

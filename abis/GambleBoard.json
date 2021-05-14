@@ -1,0 +1,664 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "contract Arbitrator",
+				"name": "_arbitrator",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes",
+				"name": "_arbitratorExtraData",
+				"type": "bytes"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint8",
+				"name": "country",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "league",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint16",
+				"name": "category",
+				"type": "uint16"
+			}
+		],
+		"name": "BetCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "backer",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum GambleBoard.State",
+				"name": "state",
+				"type": "uint8"
+			}
+		],
+		"name": "BetPlaced",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum GambleBoard.State",
+				"name": "state",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "backerStake",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "creatorStake",
+				"type": "uint256"
+			}
+		],
+		"name": "BetRefund",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum GambleBoard.State",
+				"name": "state",
+				"type": "uint8"
+			}
+		],
+		"name": "BetStateChanged",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			}
+		],
+		"name": "BetVotedOn",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "contract Arbitrator",
+				"name": "_arbitrator",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "_disputeID",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_metaEvidenceID",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_evidenceGroupID",
+				"type": "uint256"
+			}
+		],
+		"name": "Dispute",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "contract Arbitrator",
+				"name": "_arbitrator",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "_evidenceGroupID",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "_party",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "_evidence",
+				"type": "string"
+			}
+		],
+		"name": "Evidence",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "_metaEvidenceID",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "_evidence",
+				"type": "string"
+			}
+		],
+		"name": "MetaEvidence",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "contract Arbitrator",
+				"name": "_arbitrator",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "_disputeID",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_ruling",
+				"type": "uint256"
+			}
+		],
+		"name": "Ruling",
+		"type": "event"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
+		"inputs": [],
+		"name": "MIN_ODD",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "MIN_STAKE",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "RULING_OPTIONS_AMOUNT",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "arbitrator",
+		"outputs": [
+			{
+				"internalType": "contract Arbitrator",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "arbitratorExtraData",
+		"outputs": [
+			{
+				"internalType": "bytes",
+				"name": "",
+				"type": "bytes"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			}
+		],
+		"name": "betExists",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "bets",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "stakingDeadline",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "votingDeadline",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "backerStake",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "creatorStake",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum GambleBoard.RulingOption",
+				"name": "outcome",
+				"type": "uint8"
+			},
+			{
+				"internalType": "enum GambleBoard.State",
+				"name": "state",
+				"type": "uint8"
+			},
+			{
+				"internalType": "bytes1",
+				"name": "voteEvidenceBools",
+				"type": "bytes1"
+			},
+			{
+				"internalType": "address payable",
+				"name": "creator",
+				"type": "address"
+			},
+			{
+				"internalType": "address payable",
+				"name": "backer",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "creatorBetDescription",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "betsCreated",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			}
+		],
+		"name": "claimWinnings",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "creatorBetDescription",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "league",
+				"type": "string"
+			},
+			{
+				"internalType": "uint8",
+				"name": "country",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint16",
+				"name": "category",
+				"type": "uint16"
+			},
+			{
+				"internalType": "uint256",
+				"name": "stakingDeadline",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timeToVote",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "creatorOdd",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_metaEvidence",
+				"type": "string"
+			}
+		],
+		"name": "createBet",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			}
+		],
+		"name": "createDispute",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "disputeIDToBetID",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			}
+		],
+		"name": "getOutcome",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			}
+		],
+		"name": "getState",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			}
+		],
+		"name": "getVoteEvidenceBools",
+		"outputs": [
+			{
+				"internalType": "bytes8",
+				"name": "",
+				"type": "bytes8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			}
+		],
+		"name": "placeBet",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_evidence",
+				"type": "string"
+			}
+		],
+		"name": "provideEvidence",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			}
+		],
+		"name": "refund",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_disputeID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_ruling",
+				"type": "uint256"
+			}
+		],
+		"name": "rule",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum GambleBoard.RulingOption",
+				"name": "outcome",
+				"type": "uint8"
+			}
+		],
+		"name": "voteOnOutcome",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	}
+]

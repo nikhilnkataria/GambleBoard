@@ -1,0 +1,39 @@
+type Bet @entity {
+  id: ID!
+  timeCreated: BigInt!
+  timeUpdated: BigInt!
+  creator: Bytes!
+  creatorStake: BigInt!
+  backer: Bytes!
+  backerStake: BigInt!
+  outcome: Int!
+  state: Int!
+  voteEvidenceBools: Bytes!
+  stakingDeadline: BigInt!
+  votingDeadline: BigInt!
+  description: String!
+  creatorBetDescription: String!
+  country: Int!
+  league: String! 
+  category: Int!
+  disputeID: BigInt
+  _metaEvidence: String
+}
+
+type Event @entity {
+  id: ID! # set to EventDescription-Country-Category
+  description: String!
+  startTime: BigInt!
+  league: String! 
+  country: Int!
+  category: Int!
+  betIDs: [BigInt!]
+}
+
+# Reverse many to many mapping for getting list of leagues under category-country pair
+type League @entity {
+  id: ID!   # Set to Country-Category-League
+  category: Int!
+  country: Int!
+  league: String!
+}
